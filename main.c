@@ -13,8 +13,8 @@
 #define MAX_NUM_OF_WORDS 20
 #define MAX_WORD_LENGTH 15
 
-void wordListInput(char wordList[MAX_NUM_OF_WORDS][MAX_WORD_LENGTH]);
-void printCharArray(char wordList[MAX_NUM_OF_WORDS][MAX_WORD_LENGTH]);
+int wordListInput(char wordList[MAX_NUM_OF_WORDS][MAX_WORD_LENGTH]);
+void printCharArray(char wordList[MAX_NUM_OF_WORDS][MAX_WORD_LENGTH], int numberOfWordsInList);
 void capitalizeWordList(char wordList[MAX_NUM_OF_WORDS][MAX_WORD_LENGTH]);
 
 /*************************************************************************/
@@ -26,26 +26,34 @@ int main(int argc, const char * argv[]){
     printf("Jon's Crossword Puzzle Generator\n----------------------------------\n");
     printf("Enter a list of words (%d words at most):\n", MAX_NUM_OF_WORDS);
     
-    char wordList[MAX_NUM_OF_WORDS][MAX_WORD_LENGTH] = {"jump", "test", "leslie", "and", "I", "are", "going", "to", "the", "bookstore", "today", "."};
+    char wordList[MAX_NUM_OF_WORDS][MAX_WORD_LENGTH];// = {"jump", "test", "leslie", "and", "I", "are", "going", "to", "the", "bookstore", "today", "."};
     
-    wordListInput(wordList);
+    int numberOfWordsInList = wordListInput(wordList);
     capitalizeWordList(wordList);
-    printCharArray(wordList);
+    printCharArray(wordList, numberOfWordsInList);
     
     return 0;
 }
 
 /*********************     Word List Input     ***************************/
 
-void wordListInput(char wordList[MAX_NUM_OF_WORDS][MAX_WORD_LENGTH]){
-    
+int wordListInput(char wordList[MAX_NUM_OF_WORDS][MAX_WORD_LENGTH]){
+    int i;
+    for (i=0; i < MAX_NUM_OF_WORDS; i++) {
+        scanf("%s", wordList[i]);
+        if (wordList[i][0] == '.') {
+            return i;
+        }
+    }
+    return MAX_NUM_OF_WORDS;
 }
 
 /*********************     Print Char Array    ***************************/
 
-void printCharArray(char wordList[MAX_NUM_OF_WORDS][MAX_WORD_LENGTH]){
+void printCharArray(char wordList[MAX_NUM_OF_WORDS][MAX_WORD_LENGTH], int numberOfWordsInList){
     int i;
-    for (i=0; i < MAX_NUM_OF_WORDS; i++) {
+    printf("\n");
+    for (i=0; i <= numberOfWordsInList; i++) {
         printf("%s\n", wordList[i]);
     }
 }
